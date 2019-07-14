@@ -70,7 +70,7 @@ main article .news-icon {
 }
 
 main article h2 {
-    border-bottom: 1px #352E2B solid;
+    border-bottom: 1px solid;
 }
 
 main article dt::before {
