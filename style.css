@@ -1,92 +1,23 @@
 body {
-    width:  100vw;
-    /* height:  100vh; */
-    box-sizing: border-box;
-    background: #000 url('img/bg.png');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
-    display:  flex;
-    flex-flow: column wrap;
-    align-items: center;
-    justify-content: center;
-    color: #336;
-    margin: 0;
+  background: url('img/bg.png');
+  background-size: auto 100%;
+  width: 100vw;
+  margin: 0;
 }
+
 main {
-    box-sizing: border-box;
-    width: 80%;
-    max-width: 600px;
-    min-height: 80vh;
-    background-color: #EEE;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
+  min-width: 240px;
+  max-width: 40rem;
+  background-color: aliceblue;
+  color: #003;
+  margin-bottom: 0;
+  padding: 2rem;
 }
-header {
-  box-sizing: border-box;
-  width: 100%;
-  background-color: #336;
-  color: #EEE;
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 2em;
+
+main article {
+  margin: 3rem 0;
 }
-nav {
-  width: 320px;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-}
-article {
-  width: 100%;
-}
-section {
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2em;
-  padding: 0 1em;
-}
-article > section:first-child {
-  margin-top: 2em;
-}
-section h2,h3,h4,p {
-  margin: 0.2em 0;
-}
-section p {
-  text-align: center;
-}
-section hr {
-  width: 100%;
-  border: 1px #CCE solid;
-}
-.icon {
-  font-size: 32px;
-  margin: 0 16px;
-  color: #EEE;
-}
-section a {
-  color: #669;
-  font-weight: bold;
-  text-decoration: none;
-}
-footer {
-  box-sizing: border-box;
-  width: 100%;
-  height: 2em;
-  background-color: #336;
-  color: #EEE;
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
+
+main article section {
+  margin-bottom: 3rem;
 }
