@@ -1,5 +1,5 @@
 body {
-  background: url('img/bg.png');
+  background-color: #000;
   background-size: auto 100%;
   width: 100vw;
   margin: 0;
@@ -8,8 +8,8 @@ body {
 main {
   min-width: 240px;
   max-width: 40rem;
-  background-color: aliceblue;
-  color: #003;
+  background-color: #EEE;
+  color: #333;
   margin-bottom: 0;
   padding: 2rem;
 }
