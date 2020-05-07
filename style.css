@@ -21,3 +21,11 @@ main article {
 main article section {
   margin-bottom: 3rem;
 }
+
+main a {
+  color: #666;
+}
+
+main h2 {
+  border-bottom: 1px solid #333;
+}
