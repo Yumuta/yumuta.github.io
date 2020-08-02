@@ -1,108 +1,80 @@
 <html lang="ja">
 <head>
-  <title>Yumuta Official Site</title>
+  <title>Yumuta - Official Site</title>
   <meta charset="utf-8">
-  <meta name="description" content="音楽を作ったり、楽器を演奏したりしています。">
+  <meta name="description" content="Yumutaの公式ホームページです。">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap&subset=japanese" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<header>
+  <h1>Yumuta</h1>
+  <p>Music, Generative Art, Web Development</p>
+</header>
 <main>
-  <header>
-    <h1>Yumuta</h1>
-    <p>Twitter: <a href="https://twitter.com/yumuta_official">@yumuta_official</a></p>
-  </header>
-  <section>
-    <article>
-      <h2>最新作</h2>
-      <h3>LIGHT (feat. 初音ミク)</h3>
-      <p>2020.6.12 公開。</p>
-      <iframe
-       width="100%"
-       height="315"
-       src="https://www.youtube.com/embed/cj-B_YT1fxA"
-       frameborder="0"
-       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-       allowfullscreen>
-      </iframe>
-    </article>
-    <article>
-      <h2>音楽・動画作品</h2>
-      <section>
-        <h3>ニコニコ動画</h3>
-        <p>VOCALOIDを使った楽曲をメインで公開しています。</p>
-        <iframe
-         width="312"
-         height="176"
-         src="https://ext.nicovideo.jp/thumb_mylist/62028649"
-         scrolling="no"
-         style="border:solid 1px #CCC;"
-         frameborder="0">
-          <a href="https://www.nicovideo.jp/mylist/62028649">【ニコニコ動画】</a>
-        </iframe>
-        <iframe
-         width="312"
-         height="176"
-         src="https://ext.nicovideo.jp/thumb_mylist/68114117"
-         scrolling="no"
-         style="border:solid 1px #CCC;"
-         frameborder="0">
-          <a href="https://www.nicovideo.jp/mylist/68114117">【ニコニコ動画】</a>
-        </iframe>
-      </section>
-      <section>
-        <h3><a href="https://www.youtube.com/channel/UCjC2cFIEx8WnbSLZRHYmyvw" target="_blank">Yumuta YouTube channel</a></h3>
-        <p>VOCALOID曲の他に、楽器演奏（ウクレレ・ラヴドラムetc...）、楽器自作などのコーナーがあります。</p>
-      </section>
-      <section>
-        <h3>SoundCloud</h3>
-        <p>VOCALOID曲に加えて、インストの曲、実験的な曲などを公開しています。</p>
-        <iframe
-         width="100%"
-         height="300"
-         scrolling="no"
-         frameborder="no"
-         allow="autoplay"
-         src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/61781645&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
-        </iframe>
-      </section>
-    </article>
-    <article>
-      <h2>アルバム・EP</h2>
-      <section>
-        <h3>1st ALBUM 「OUTBOUND」</h3>
-        <p>2019.7.14 公開。VOCALOID曲12曲入り。無料配信中です。</p>
-        <p><a href="https://booth.pm/ja/items/1379610">配信サイトはこちら(Booth)</a></p>
-        <iframe
-        width="100%"
-        height="315"
-        src="https://www.youtube.com/embed/U3iCJogijCs"
-        frameborder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-       </iframe>
-      </section>
-    </article>
-    <article>
-      <h2>その他</h2>
-      <section>
-        <h3><a href="https://yumuta.fanbox.cc/" target="_blank">Pixiv FANBOX</a></h3>
-        <p>楽曲の紹介、日記、告知などを書いています。</p>
-      </section>
-      <section>
-        <h3><a href="https://yumuta.github.io/vocaminer/" target="_blank">ボカロ曲発掘サービス「VocaMiner」</a></h3>
-        <p>ニコニコ動画のボカロ曲をランダムで引っ張ってくるWEBサービス。お気に入りの曲・ボカロPを見つけよう。無料でご利用できます。</p>
-      </section>
-      <section>
-        <h3><a href="https://yumuta.github.io/DADADAattack/" target="_blank">DADADA Attack!</a></h3>
-        <p>昔作ったゲームです。ブラウザから遊べます。無料です。スマホからはご利用できません。</p>
-      </section>
-    </article>
+  <video
+    id="heroimg"
+    src="img/glass_loop.mp4"
+    muted
+    autoplay
+    loop>  
+  </video>
+  <h2>Works</h2>
+  <section class="gallery">
+    <a href="https://youtu.be/qUZLxsbgsuw" target="_blank">
+      <img class="thumbnail" src="works/20200418/glass_world_thumbnail.png" alt="ガラスの世界">
+    </a>
+    <a href="https://booth.pm/ja/items/1379610" target="_blank">
+      <img class="thumbnail" src="works/20190714/outb_thumbnail.png" alt="Yumuta 1st ALBUM OUTBOUND">
+    </a>
+    <a href="https://www.nicovideo.jp/watch/sm35086817" target="_blank">
+      <img class="thumbnail" src="works/20190506/mataokita_thumbnail.png" alt="カセットのボカロ曲「またおきた」">
+    </a>
+    <a href="https://www.nicovideo.jp/watch/sm34643983" target="_blank">
+      <img class="thumbnail" src="works/20190217/sora_thumbnail.png" alt="空">
+    </a>
+    <a href="https://www.nicovideo.jp/watch/sm34291127" target="_blank">
+      <img class="thumbnail" src="works/20181209/gravity_thumbnail.png" alt="Gravity">
+    </a>
+    <a href="https://www.nicovideo.jp/watch/sm33604047" target="_blank">
+      <img class="thumbnail" src="works/20180729/asi_thumbnail.png" alt="足足足足">
+    </a>
+    <a href="https://www.nicovideo.jp/watch/sm33213837" target="_blank">
+      <img class="thumbnail" src="works/20180515/poem_thumbnail.png" alt="ポエム">
+    </a>
   </section>
-  <footer>
-    <p>Copyright &copy; Yumuta 2020</p>
-  </footer>
+  <section class="gallery">
+    <a href="works/20200720/index.html">
+      <img class="thumbnail" src="works/20200720/out_trial0_frame9337_thumbnail.png" alt="Black Dots">
+    </a>
+    <a href="works/20200720/index.html">
+      <img class="thumbnail" src="works/20200720/out_trial1_frame2845_thumbnail.png" alt="Black Dots">
+    </a>
+    <a href="works/20200719/index.html">
+      <img class="thumbnail" src="works/20200719/out_rule110_trial0_thumbnail.png" alt="Triangular">
+    </a>
+    <a href="works/20200718/index.html">
+      <img class="thumbnail" src="works/20200718/out_trial38.png" alt="Strata">
+    </a>
+    <a href="works/20200716/index.html">
+      <img class="thumbnail" src="works/20200716/out_trial37.png" alt="Mimic Eye">
+    </a>
+    <a href="works/20200715/index.html">
+      <img class="thumbnail" src="works/20200715/out439_thumbnail.png" alt="Marble / Rings">
+    </a>
+    <a href="works/20200715/index.html">
+      <img class="thumbnail" src="works/20200715/out236_thumbnail.png" alt="Marble / Rings">
+    </a>
+  </section>
+  <section class="gallery">
+    <a href="https://yumuta.github.io/vocaminer/" target="_blank">
+      <img class="thumbnail" src="works/20190824/vocaminer_thumbnail.png" alt="VocaMiner">
+    </a>
+  </section>
 </main>
+<footer>
+  <p>Copyright &copy; Yumuta 2018-</p>
+</footer>
 </body>
 </html>
