@@ -1,87 +1,28 @@
 body {
-  min-width: 240px;
   background-color: #FFF;
   color: #113;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 1rem;
 }
 
 header {
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-bottom: 1px #113 solid;
 }
 
-main {
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 4rem;
+footer {
+  margin-top: 1rem;
+  border-top: 1px #113 solid;
 }
 
-main a {
-  color: #AAA;
+section {
+  margin: 2rem 0;
 }
 
-main h2 {
-  margin-top: 4rem;
-  margin-bottom: 0.5rem;
-}
-
-.heroimg {
-  box-sizing: border-box;
-  width: 100%;
-  height: auto;
-  padding: 2rem;
-}
-
-.gallery {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: auto;
-}
-
-.gallery .thumbnail {
-  box-sizing: border-box;
-  width: 100%;
-  height: auto;
-  padding: 0.1rem;
-  border-radius: 2rem;
-}
-
-.showcase {
-  box-sizing: border-box;
-  max-width: 100%;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.showcase .item {
-  width: 100%;
-  height: auto;
-  margin-bottom: 2rem;
-}
-
-.gallery .thumbnail.text {
-  margin: 0;
-  background-color: #9a9b9f;
-  color: #FFF;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+a {
+  color: #00F;
   text-decoration: none;
 }
 
-@media screen and (max-width: 720px) {
-  .gallery {
-    grid-template-columns: repeat(3, 1fr);
-  }
+a:hover {
+  color: #00F;
+  text-decoration: underline;
 }
