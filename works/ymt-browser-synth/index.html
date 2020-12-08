@@ -1,0 +1,1002 @@
+<html>
+  <head>
+    <title>YMT Browser Synth</title>
+    <style>
+      body {
+        background-color: #002;
+        font-family: 'Courier New', Courier, monospace;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+      main {
+        background-color: #FFF;
+        width: 800px;
+        height: 480px;
+        padding: 4px;
+        display: flex;
+        flex-direction: column;
+        /* font-size: 12px; */
+      }
+      #lack-top {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+      }
+      #lack-bottom {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+      }
+      #lack-footer {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+      }
+      .module {
+        background-color: #AAA;
+        margin: 2px;
+        padding: 2px 8px;
+        flex: 1;
+      }
+      .module-item {
+        margin: 8px 0;
+        display: flex;
+      }
+      .osc-type-img {
+        width: 80px;
+        height: 80px;
+        background-color: blueviolet;
+      }
+      .module-item-selector {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .module-item-label {
+        width: 64px;
+      }
+      #black-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #click-to-play-dialog {
+        position: absolute;
+        width: 512px;
+        height: 320px;
+        background-color: #ffffff;
+        z-index: 101;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="black-screen">
+      <section id="click-to-play-dialog">
+        <h1>YMT Browser Synth</h1>
+        <p>Connect your MIDI Keys, or use PC keyboard to play.</p>
+        <div>
+          <img src="img/pckeysmap.png" alt="Key">
+          <span style="font-size: 10px;">press ↑, ↓ key to change octave pitch</span>
+        </div>
+        <button style="font-size: 16px; margin-top: 12px; padding: 8px;" onclick="startYMTBrowserSynth()">Click to play</button>
+      </section>
+    </div>
+    <main>
+      <header>
+        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+          <span style="font-size: 24px;">YMT BROWSER SYNTH</span>
+          <p>Copyright &copy; Yumuta 2020</p>
+        </div>
+      </header>
+      <div id="lack-top">
+        <section id="osc1" class="module">
+          OSC 1
+          <div class="module-item">
+            <img id="osc1-type-img" src="img/sine.png" alt="OSC1 Type">
+            <div class="module-item-selector">
+              <div>
+                <input type="radio" name="osc1-type" value="sine" checked> SIN
+              </div>
+              <div>
+                <input type="radio" name="osc1-type" value="sawtooth"> SAW
+              </div>
+              <div>
+                <input type="radio" name="osc1-type" value="triangle"> TRI
+              </div>
+              <div>
+                <input type="radio" name="osc1-type" value="square"> SQU
+              </div>
+            </div>
+          </div>
+          <div class="module-item">
+            <div>
+              <div class="module-item-label">Octave</div>
+              <input type="radio" name="osc1-octave" value="-1"> -1
+              <input type="radio" name="osc1-octave" value="0" checked> 0
+              <input type="radio" name="osc1-octave" value="+1"> +1
+            </div>
+          </div>
+        </section>
+        <section id="osc2" class="module">
+          OSC 2
+          <div class="module-item">
+            <img id="osc2-type-img" src="img/sawtooth.png" alt="OSC2 Type">
+            <div class="module-item-selector">
+              <div>
+                <input type="radio" name="osc2-type" value="sine"> SIN
+              </div>
+              <div>
+                <input type="radio" name="osc2-type" value="sawtooth" checked> SAW
+              </div>
+              <div>
+                <input type="radio" name="osc2-type" value="triangle"> TRI
+              </div>
+              <div>
+                <input type="radio" name="osc2-type" value="square"> SQU
+              </div>
+            </div>
+          </div>
+          <div class="module-item">
+            <div>
+              <div class="module-item-label">Octave</div>
+              <input type="radio" name="osc2-octave" value="-1"> -1
+              <input type="radio" name="osc2-octave" value="0" checked> 0
+              <input type="radio" name="osc2-octave" value="+1"> +1
+            </div>
+          </div>
+        </section>
+        <div style="display: flex; flex-direction: column;">
+          <section id="mix" class="module" style="flex: 1">
+            OSC1, 2 MIX
+            <div class="module-item">
+              <div class="module-item-label">ratio</div>
+              <input type="range" id="mix-ratio" min="0" max="1" step="0.001" value="0.5">
+            </div>
+          </section>
+          <section id="filter" class="module" style="flex: 1">
+            Filter
+            <div class="module-item">
+              <div class="module-item-label">Type</div>
+              <input type="radio" name="filter-type" value="lowpass" checked> LPF
+              <input type="radio" name="filter-type" value="highpass"> HPF
+            </div>
+            <div class="module-item">
+              <div class="module-item-label">Cutoff</div>
+              <input type="range" id="filter-freq" min="50" max="8000" step="10" value="4000">
+            </div>
+          </section>
+        </div>
+      </div>
+      <div id="lack-bottom">
+        <section class="module">
+          AMP ENVELOPE
+          <div class="module-item">
+            <div class="module-item-label">Attack</div>
+            <input type="range" id="env-attack" min="0.01" max="1" step="0.001" value="0.01">
+          </div>
+          <div class="module-item">
+            <div class="module-item-label">Decay</div>
+            <input type="range" id="env-decay" min="0.01" max="1" step="0.001" value="0.01">
+          </div>
+          <div class="module-item">
+            <div class="module-item-label">Sustain</div>
+            <input type="range" id="env-sustain" min="0" max="1" step="0.001" value="1">
+          </div>
+          <div class="module-item">
+            <div class="module-item-label">Release</div>
+            <input type="range" id="env-release" min="0.01" max="2" step="0.001" value="0.1">
+          </div>
+        </section>
+        <section class="module">
+          LFO 1
+          <div class="module-item">
+            <div class="module-item-label">Type</div>
+            <input type="radio" name="lfo1-type" value="sine" checked> SIN
+            <input type="radio" name="lfo1-type" value="sawtooth"> SAW
+            <input type="radio" name="lfo1-type" value="triangle"> TRI
+            <input type="radio" name="lfo1-type" value="square"> SQU
+          </div>
+          <div class="module-item">
+            <div class="module-item-label">Freq</div>
+            <input type="range" id="lfo1-freq" min="1" max="20" step="0.01" value="4">
+          </div>
+          <div class="module-item">
+            <div class="module-item-label">Depth</div>
+            <input type="range" id="lfo1-depth" min="0" max="1" step="0.001" value="0">
+          </div>
+          <div class="module-item">
+            <div class="module-item-label">Connect to</div>
+            <select id="lfo1-target">
+              <option value="amp">Amp</option>
+              <option value="osc1-freq">OSC1 freq</option>
+              <option value="osc2-freq">OSC2 freq</option>
+              <option value="filter-cutoff">Filter cutoff</option>
+            </select>
+          </div>
+        </section>
+        <section class="module">
+          LFO 2
+          <div class="module-item">
+            <div class="module-item-label">Type</div>
+            <input type="radio" name="lfo2-type" value="sine" checked> SIN
+            <input type="radio" name="lfo2-type" value="sawtooth"> SAW
+            <input type="radio" name="lfo2-type" value="triangle"> TRI
+            <input type="radio" name="lfo2-type" value="square"> SQU
+          </div>
+          <div class="module-item">
+            <div class="module-item-label">Freq</div>
+            <input type="range" id="lfo2-freq" min="1" max="20" step="0.01" value="8">
+          </div>
+          <div class="module-item">
+            <div class="module-item-label">Depth</div>
+            <input type="range" id="lfo2-depth" min="0" max="1" step="0.001" value="0">
+          </div>
+          <div class="module-item">
+            <div class="module-item-label">Connect to</div>
+            <select id="lfo2-target">
+              <option value="amp">Amp</option>
+              <option value="osc1-freq">OSC1 freq</option>
+              <option value="osc2-freq">OSC2 freq</option>
+              <option value="filter-cutoff">Filter cutoff</option>
+            </select>
+          </div>
+        </section>
+      </div>
+      <div id="lack-footer">
+        <section class="module" style="flex: 2;">
+          <div class="module-item">
+            PRESETS
+            <input type="radio" name="presets" value="0" checked>
+            <label id="preset0-label">--</label>
+            <input type="radio" name="presets" value="1">
+            <label id="preset1-label">--</label>
+            <input type="radio" name="presets" value="2">
+            <label id="preset2-label">--</label>
+          </div>
+          <div class="module-item">
+            OVERWRITE PRESET AS: 
+            <input type="text" id="current-preset-name" maxlength="16" placeholder="Input new preset name" value="">
+            <button id="save-preset">Save</button>
+          </div>
+        </section>
+        <section class="module" style="flex: 1;">
+          <div class="module-item">
+            MASTER VOLUME
+            <input type="range" id="master-volume" min="0" max="1" step="0.01" value="0.50">
+          </div>
+        </section>
+      </div>
+    </main>
+    <script>
+      class Synth {
+        constructor (oscNum) {
+          this.audioCtx = new AudioContext();
+          this.oscArray = [];
+          this.octave1 = 0;
+          this.octave2 = 0;
+          this.ampEnv = {
+            attackTime: 0.001,
+            decayTime: 0.1,
+            sustainLv: 0.8,
+            releaseTime: 0.5
+          }
+          this.filterNode = new BiquadFilterNode(this.audioCtx);
+          this.lfo1Node = new OscillatorNode(this.audioCtx, { frequency: 4 });
+          this.lfo1GainNode = new GainNode(this.audioCtx);
+          this.lfo1ConnectionNodes = {};
+          this.lfo1ConnectionNodes['amp'] = new GainNode(this.audioCtx, { gain: 0 });
+          this.lfo1ConnectionNodes['osc1-freq'] = new GainNode(this.audioCtx, { gain: 0 });
+          this.lfo1ConnectionNodes['osc2-freq'] = new GainNode(this.audioCtx, { gain: 0 });
+          this.lfo1ConnectionNodes['filter-cutoff'] = new GainNode(this.audioCtx, { gain: 0 });
+          this.lfo2Node = new OscillatorNode(this.audioCtx, { frequency: 8 });
+          this.lfo2GainNode = new GainNode(this.audioCtx);
+          this.lfo2ConnectionNodes = {};
+          this.lfo2ConnectionNodes['amp'] = new GainNode(this.audioCtx, { gain: 0 });
+          this.lfo2ConnectionNodes['osc1-freq'] = new GainNode(this.audioCtx, { gain: 0 });
+          this.lfo2ConnectionNodes['osc2-freq'] = new GainNode(this.audioCtx, { gain: 0 });
+          this.lfo2ConnectionNodes['filter-cutoff'] = new GainNode(this.audioCtx, { gain: 0 });
+          this.lfoGainCoefNodes = [
+            new GainNode(this.audioCtx, { gain: 0.5 }),
+            new GainNode(this.audioCtx, { gain: 0.5 })
+          ];
+          this.tremolloGainNode = new GainNode(this.audioCtx, { gain: 1 });
+          this.masterVolumeNode = new GainNode(this.audioCtx);
+          for (let i = 0; i < oscNum; ++i) {
+            this.oscArray.push({
+              key: null,
+              oscNode1: new OscillatorNode(this.audioCtx),
+              oscNode2: new OscillatorNode(this.audioCtx),
+              osc1GainNode: new GainNode(this.audioCtx), // OSC 1,2 Mix
+              osc2GainNode: new GainNode(this.audioCtx), // OSC 1,2 Mix
+              gainNode: new GainNode(this.audioCtx), // gain of each note & Amp Env
+            });
+          }
+          for (const osc of this.oscArray) {
+            osc.oscNode1.frequency.value = 0;
+            osc.osc1GainNode.gain.value = 0.5;
+            osc.oscNode2.frequency.value = 0;
+            osc.osc2GainNode.gain.value = 0.5;
+            osc.gainNode.gain.value = 0;
+            osc.oscNode1
+              .connect(osc.osc1GainNode)
+              .connect(osc.gainNode)
+              .connect(this.filterNode)
+              .connect(this.tremolloGainNode)
+              .connect(this.masterVolumeNode)
+              .connect(this.audioCtx.destination);
+            osc.oscNode2
+              .connect(osc.osc2GainNode)
+              .connect(osc.gainNode)
+              .connect(this.filterNode)
+              .connect(this.tremolloGainNode)
+              .connect(this.masterVolumeNode)
+              .connect(this.audioCtx.destination);
+            osc.oscNode1.start();
+            osc.oscNode2.start();
+          }
+          this.lfo1Node.connect(this.lfo1GainNode).connect(this.lfoGainCoefNodes[0]);
+          this.lfo2Node.connect(this.lfo2GainNode).connect(this.lfoGainCoefNodes[1]);
+          this.lfoGainCoefNodes[0]
+            .connect(this.lfo1ConnectionNodes['amp'])
+            .connect(this.tremolloGainNode.gain);
+          this.lfoGainCoefNodes[1]
+            .connect(this.lfo2ConnectionNodes['amp'])
+            .connect(this.tremolloGainNode.gain);
+          for (const osc of this.oscArray) {
+            this.lfoGainCoefNodes[0]
+              .connect(this.lfo1ConnectionNodes['osc1-freq'])
+              .connect(osc.oscNode1.frequency);
+            this.lfoGainCoefNodes[0]
+              .connect(this.lfo1ConnectionNodes['osc2-freq'])
+              .connect(osc.oscNode2.frequency);
+            this.lfoGainCoefNodes[1]
+              .connect(this.lfo2ConnectionNodes['osc1-freq'])
+              .connect(osc.oscNode1.frequency);
+            this.lfoGainCoefNodes[1]
+              .connect(this.lfo2ConnectionNodes['osc2-freq'])
+              .connect(osc.oscNode2.frequency);
+          }
+          this.lfoGainCoefNodes[0]
+            .connect(this.lfo1ConnectionNodes['filter-cutoff'])
+            .connect(this.filterNode.frequency);
+          this.lfoGainCoefNodes[1]
+            .connect(this.lfo2ConnectionNodes['filter-cutoff'])
+            .connect(this.filterNode.frequency);
+          this.lfo1Node.start();
+          this.lfo2Node.start();
+        }
+
+        playKeys (keysList) {
+          // keysList: array of pressed midi note numbers
+          let newKeysList = [...keysList];
+          if (keysList.length > this.oscArray.length) {
+            // newKeysList.length should be less than this.oscArray.length
+            newKeysList = keysList.slice(keysList.length - this.oscArray.length);
+          }
+          const volume = newKeysList.length ? (1 / (1 + Math.log(newKeysList.length))) : 0;
+          for (let i = 0; i < this.oscArray.length; ++i) {
+            const now = this.audioCtx.currentTime;
+            this.oscArray[i].gainNode.gain.cancelScheduledValues(now);
+            if (i < newKeysList.length) {
+              const modifiedKey1 = keysList[i] + this.octave1;
+              const modifiedKey2 = keysList[i] + this.octave2;
+              const freq1 = 440.0 * Math.pow(2.0, (modifiedKey1 - 69.0) / 12.0);
+              const freq2 = 440.0 * Math.pow(2.0, (modifiedKey2 - 69.0) / 12.0);
+              this.oscArray[i].oscNode1.frequency.value = freq1;
+              this.oscArray[i].oscNode2.frequency.value = freq2;
+              // A-D-S
+              this.oscArray[i].gainNode.gain.setValueAtTime(0, now);
+              this.oscArray[i].gainNode.gain.linearRampToValueAtTime(volume, now + Number(this.ampEnv.attackTime));
+              this.oscArray[i].gainNode.gain.linearRampToValueAtTime(
+                volume * Number(this.ampEnv.sustainLv),
+                now + Number(this.ampEnv.attackTime) + Number(this.ampEnv.decayTime)
+              );
+            } else {
+              // R
+              this.oscArray[i].gainNode.gain.linearRampToValueAtTime(0, now + Number(this.ampEnv.releaseTime));
+            }
+          }
+        }
+
+        setOscType (nodeIdx, type) {
+          for (const osc of this.oscArray) {
+            if (nodeIdx === 0) {
+              osc.oscNode1.type = type;
+            } else if (nodeIdx === 1) {
+              osc.oscNode2.type = type;
+            }
+          }
+        }
+
+        setOctave (nodeIdx, octave) {
+          if (nodeIdx === 0) {
+            this.octave1 = octave * 12;
+          } else if (nodeIdx === 1) {
+            this.octave2 = octave * 12;
+          }
+        }
+
+        setOsc12MixRatio (ratio) {
+          for (const osc of this.oscArray) {
+            osc.osc1GainNode.gain.value = 1 - ratio;
+            osc.osc2GainNode.gain.value = ratio;
+          }
+        }
+
+        setFilterType (type) {
+          this.filterNode.type = type;
+        }
+
+        setFilterFrequency (freq) {
+          this.filterNode.frequency.value = freq;
+        }
+
+        setAmpEnvParam (paramName, value) {
+          this.ampEnv[paramName] = value;
+        }
+
+        setMasterVolume (volume) {
+          this.masterVolumeNode.gain.value = volume;
+        }
+
+        setLFOTarget (nodeIdx, tgtType) {
+          if (tgtType === 'amp') {
+            this.lfoGainCoefNodes[nodeIdx].gain.value = 0.5;
+          } else if (tgtType === 'osc1-freq' || tgtType === 'osc2-freq') {
+            this.lfoGainCoefNodes[nodeIdx].gain.value = 200;
+          } else if (tgtType === 'filter-cutoff') {
+            this.lfoGainCoefNodes[nodeIdx].gain.value = 500;
+          }
+          const connectionNodes = nodeIdx === 0 ? this.lfo1ConnectionNodes : nodeIdx === 1 ? this.lfo2ConnectionNodes : {};
+          for (const [type, connectionNode] of Object.entries(connectionNodes)) {
+            if (type === tgtType) {
+              connectionNode.gain.value = 1;
+            } else {
+              connectionNode.gain.value = 0;
+            }
+          }
+        }
+
+        setLFOType (nodeIdx, type) {
+          if (nodeIdx === 0) {
+            this.lfo1Node.type = type;
+          } else if (nodeIdx === 1) {
+            this.lfo2Node.type = type;
+          }
+        }
+
+        setLFOFrequency (nodeIdx, freq) {
+          if (nodeIdx === 0) {
+            this.lfo1Node.frequency.value = freq;
+          } else if (nodeIdx === 1) {
+            this.lfo2Node.frequency.value = freq;
+          }
+        }
+
+        setLFODepth (nodeIdx, depth) {
+          if (nodeIdx === 0) {
+            this.lfo1GainNode.gain.value = depth;
+          } else if (nodeIdx === 1) {
+            this.lfo2GainNode.gain.value = depth;
+          }
+        }
+      }
+      class MidiController {
+        constructor (synth) {
+          this.midi = null;
+          this.midiInputs = null;
+          this.pressedKeys = [];
+          this.synth = synth;
+        }
+
+        async initialize () {
+          if (!(navigator || {}).requestMIDIAccess) {
+            console.log('MIDI not supported');
+            return;
+          }
+          try {
+            this.midi = await navigator.requestMIDIAccess();
+            if (typeof this.midi.inputs === 'function') {
+              console.log('MIDI inputs comes as function');
+              this.midiInputs = this.midi.inputs();
+            } else {
+              console.log('MIDI inputs comes as an iterator');
+              this.midiInputs = [];
+              const midiInputsIterator = this.midi.inputs.values();
+              for (let input = midiInputsIterator.next(); !input.done; input = midiInputsIterator.next()) {
+                this.midiInputs.push(input.value);
+              }
+            }
+            for (const input of this.midiInputs) {
+              input.onmidimessage = (event) => {
+                // event.data[0]: Note ON (144) / OFF (128)
+                // event.data[1]: Note
+                // event.data[2]: Velocity
+                this.updatePressedKeys(event.data);
+              }
+            }
+            console.log('MIDI access enabled');
+          } catch (err) {
+            console.log(`MIDI access failed: ${err}`);
+          }
+        }
+
+        updatePressedKeys (midiEvtData) {
+          const newPressedKeys = [...this.pressedKeys];
+          const tgtKey = midiEvtData[1];
+          const velocity = midiEvtData[2];
+          if (midiEvtData[0] === 144) { // Note ON
+            if (!newPressedKeys.find(key => key === tgtKey)) {
+              newPressedKeys.push(tgtKey);
+            }
+          } else if (midiEvtData[0] === 128) { // Note OFF
+            const targetKeyIndex = newPressedKeys.findIndex(key => key === tgtKey);
+            if (targetKeyIndex !== -1) {
+              newPressedKeys.splice(targetKeyIndex, 1);
+            }
+          }
+          this.pressedKeys = newPressedKeys;
+          this.synth.playKeys(newPressedKeys);
+        }
+      };
+
+      class KeyboardController extends MidiController {
+        constructor (synth) {
+          super(synth);
+          this.octave = 0;
+          this.synth = synth;
+          document.addEventListener('keydown', (event) => {
+            this.changeOctave(event.key);
+            if (!event.repeat) {
+              const note = this.convertKeyToMidiNote(event.key);
+              if (note !== null) {
+                this.updatePressedKeys([144, note, 100]); // Note On, velocity 100
+              }
+            }
+          });
+          document.addEventListener('keyup', (event) => {
+            if (!event.repeat) {
+              const note = this.convertKeyToMidiNote(event.key);
+              if (note !== null) {
+                this.updatePressedKeys([128, note, 0]); // Note Off, velocity 100
+              }
+            }
+          });
+        }
+
+        convertKeyToMidiNote (key) {
+          let note = null;
+          switch (key) {
+            case 'z':
+              note = 60;
+              break;
+            case 's':
+              note = 61;
+              break;
+            case 'x':
+              note = 62;
+              break;
+            case 'd':
+              note = 63;
+              break;
+            case 'c':
+              note = 64;
+              break;
+            case 'v':
+              note = 65;
+              break;
+            case 'g':
+              note = 66;
+              break; 
+            case 'b':
+              note = 67;
+              break;
+            case 'h':
+              note = 68;
+              break;
+            case 'n':
+              note = 69;
+              break;
+            case 'j':
+              note = 70;
+              break;
+            case 'm':
+              note = 71;
+              break;
+            case ',':
+              note = 72;
+              break;
+            default:
+              break;
+          }
+          if (note === null) return null;
+          return note + this.octave * 12; // A3
+        }
+
+        changeOctave (key) {
+          if (key === 'ArrowUp') {
+            ++this.octave;
+          } else if (key === 'ArrowDown') {
+            --this.octave; 
+          }
+        }
+      }
+
+      const main = async () => {
+        const synth = new Synth(10);
+        const midi = new MidiController(synth);
+        await midi.initialize();
+        const keyboard = new KeyboardController(synth);
+
+        const presets = [
+          { name: '' },
+          { name: '' },
+          { name: '' }
+        ];
+
+        // DOM
+        const OSC1TypeElements = document.getElementsByName('osc1-type');
+        const OSC1TypeThumbnailElement = document.getElementById('osc1-type-img');
+        const OSC2TypeElements = document.getElementsByName('osc2-type');
+        const OSC2TypeThumbnailElement = document.getElementById('osc2-type-img');
+        const OSC1OctaveElements = document.getElementsByName('osc1-octave');
+        const OSC2OctaveElements = document.getElementsByName('osc2-octave');
+        const OSC12MixElement = document.getElementById('mix-ratio');
+        const FilterTypeElements = document.getElementsByName('filter-type');
+        const FilterFreqElement = document.getElementById('filter-freq');
+        const AmpEnvAttackElement = document.getElementById('env-attack');
+        const AmpEnvDecayElement = document.getElementById('env-decay');
+        const AmpEnvSustainElement = document.getElementById('env-sustain');
+        const AmpEnvReleaseElement = document.getElementById('env-release');
+        const LFO1TypeElements = document.getElementsByName('lfo1-type');
+        const LFO1FreqElement = document.getElementById('lfo1-freq');
+        const LFO1DepthElement = document.getElementById('lfo1-depth');
+        const LFO1TargetElement = document.getElementById('lfo1-target');
+        const LFO2TypeElements = document.getElementsByName('lfo2-type');
+        const LFO2FreqElement = document.getElementById('lfo2-freq');
+        const LFO2DepthElement = document.getElementById('lfo2-depth');
+        const LFO2TargetElement = document.getElementById('lfo2-target');
+        const MasterVolumeElement = document.getElementById('master-volume');
+        const PresetElements =document.getElementsByName('presets');
+        // OSC1
+        for (const elem of OSC1TypeElements) {
+          if (elem.checked) {
+            synth.setOscType(0, elem.value);
+            OSC1TypeThumbnailElement.src = `img/${elem.value}.png`;
+          }
+          elem.addEventListener('change', function () {
+            OSC1TypeThumbnailElement.src = `img/${this.value}.png`;
+            synth.setOscType(0, this.value);
+          });
+        }
+        for (const elem of OSC1OctaveElements) {
+          if (elem.checked) {
+            synth.setOctave(0, elem.value);
+          }
+          elem.addEventListener('change', function () {
+            synth.setOctave(0, this.value);
+          });
+        }
+        // OSC2
+        for (const elem of OSC2TypeElements) {
+          if (elem.checked) {
+            synth.setOscType(1, elem.value);
+            OSC2TypeThumbnailElement.src = `img/${elem.value}.png`;
+          }
+          elem.addEventListener('change', function () {
+            OSC2TypeThumbnailElement.src = `img/${this.value}.png`;
+            synth.setOscType(1, this.value);
+          });
+        }
+        for (const elem of OSC2OctaveElements) {
+          if (elem.checked) {
+            synth.setOctave(1, elem.value);
+          }
+          elem.addEventListener('change', function () {
+            synth.setOctave(1, this.value);
+          });
+        }
+        // OSC1, 2 Mix Ratio
+        synth.setOsc12MixRatio(OSC12MixElement.value);
+        OSC12MixElement.addEventListener('input', function () {
+          synth.setOsc12MixRatio(this.value);
+        });
+
+        // Filter
+        for (const elem of FilterTypeElements) {
+          if (elem.checked) {
+            synth.setFilterType(elem.value);
+          }
+          elem.addEventListener('change', function () {
+            synth.setFilterType(this.value);
+          });
+        }
+
+        synth.setFilterFrequency(FilterFreqElement.value);
+        FilterFreqElement.addEventListener('input', function () {
+          synth.setFilterFrequency(this.value);
+        });
+
+        // Amp Envelopes
+        synth.setAmpEnvParam('attackTime', AmpEnvAttackElement.value);
+        synth.setAmpEnvParam('decayTime', AmpEnvDecayElement.value);
+        synth.setAmpEnvParam('sustainLv', AmpEnvSustainElement.value);
+        synth.setAmpEnvParam('releaseTime', AmpEnvReleaseElement.value);
+        AmpEnvAttackElement.addEventListener('input', function () {
+          synth.setAmpEnvParam('attackTime', this.value);
+        });
+        AmpEnvDecayElement.addEventListener('input', function () {
+          synth.setAmpEnvParam('decayTime', this.value);
+        });
+        AmpEnvSustainElement.addEventListener('input', function () {
+          synth.setAmpEnvParam('sustainLv', this.value);
+        });
+        AmpEnvReleaseElement.addEventListener('input', function () {
+          synth.setAmpEnvParam('releaseTime', this.value);
+        });
+
+        // LFO1
+        for (const elem of LFO1TypeElements) {
+          if (elem.checked) {
+            synth.setLFOType(0, elem.value);
+          }
+          elem.addEventListener('change', function () {
+            synth.setLFOType(0, this.value);
+          });
+        }
+        synth.setLFOFrequency(0, LFO1FreqElement.value);
+        LFO1FreqElement.addEventListener('input', function () {
+          synth.setLFOFrequency(0, this.value);
+        });
+        synth.setLFODepth(0, LFO1DepthElement.value);
+        LFO1DepthElement.addEventListener('input', function () {
+          synth.setLFODepth(0, this.value);
+        });
+        synth.setLFOTarget(0, LFO1TargetElement.value);
+        LFO1TargetElement.addEventListener('change', function () {
+          synth.setLFOTarget(0, this.value);
+        });
+
+        // LFO2
+        for (const elem of LFO2TypeElements) {
+          if (elem.checked) {
+            synth.setLFOType(1, elem.value);
+          }
+          elem.addEventListener('change', function () {
+            synth.setLFOType(1, this.value);
+          });
+        }
+        synth.setLFOFrequency(1, LFO2FreqElement.value);
+        LFO2FreqElement.addEventListener('input', function () {
+          synth.setLFOFrequency(1, this.value);
+        });
+        synth.setLFODepth(1, LFO2DepthElement.value);
+        LFO2DepthElement.addEventListener('input', function () {
+          synth.setLFODepth(1, this.value);
+        });
+        synth.setLFOTarget(1, LFO2TargetElement.value);
+        LFO2TargetElement.addEventListener('change', function () {
+          synth.setLFOTarget(1, this.value);
+        });
+
+        // master volume
+        synth.setMasterVolume(MasterVolumeElement.value);
+        MasterVolumeElement.addEventListener('input', function () {
+          synth.setMasterVolume(this.value);
+        });
+
+        // preset
+        const savePreset = (idx) => {
+          const presetIdx = Number(idx);
+          console.log(`save preset ${presetIdx + 1}`);
+          presets[presetIdx].name = document.getElementById('current-preset-name').value || `Preset ${presetIdx+1}`;
+          document.getElementById(`preset${presetIdx}-label`).innerText = presets[presetIdx].name;
+          for (const elem of OSC1TypeElements) {
+            if (elem.checked) {
+              presets[presetIdx].osc1Type = elem.value;
+              break;
+            }
+          }
+          for (const elem of OSC1OctaveElements) {
+            if (elem.checked) {
+              presets[presetIdx].osc1Octave = elem.value;
+              break;
+            }
+          }
+          for (const elem of OSC2TypeElements) {
+            if (elem.checked) {
+              presets[presetIdx].osc2Type = elem.value;
+              break;
+            }
+          }
+          for (const elem of OSC2OctaveElements) {
+            if (elem.checked) {
+              presets[presetIdx].osc2Octave = elem.value;
+              break;
+            }
+          }
+          presets[presetIdx].osc12MixRatio = OSC12MixElement.value;
+          for (const elem of FilterTypeElements) {
+            if (elem.checked) {
+              presets[presetIdx].filterType = elem.value;
+              break;
+            }
+          }
+          presets[presetIdx].filterFreq = FilterFreqElement.value;
+          presets[presetIdx].attackTime = AmpEnvAttackElement.value;
+          presets[presetIdx].decayTime = AmpEnvDecayElement.value;
+          presets[presetIdx].sustainLv = AmpEnvSustainElement.value;
+          presets[presetIdx].releaseTime = AmpEnvReleaseElement.value;
+          for (const elem of LFO1TypeElements) {
+            if (elem.checked) {
+              presets[presetIdx].lfo1Type= elem.value;
+              break;
+            }
+          }
+          presets[presetIdx].lfo1Freq = LFO1FreqElement.value;
+          presets[presetIdx].lfo1Depth = LFO1DepthElement.value;
+          presets[presetIdx].lfo1Target = LFO1TargetElement.value;
+          presets[presetIdx].lfo2Freq = LFO2FreqElement.value;
+          presets[presetIdx].lfo2Depth = LFO2DepthElement.value;
+          presets[presetIdx].lfo2Target = LFO2TargetElement.value;
+        };
+        const applyPreset = (preset) => {
+          document.getElementById('current-preset-name').value = preset.name || '';
+          if (preset.hasOwnProperty('osc1Type')){
+            synth.setOscType(0, preset.osc1Type);
+            for (const elem of OSC1TypeElements) {
+              if (elem.value === preset.osc1Type) {
+                elem.checked = true;
+              } else {
+                elem.checked = false;
+              }
+            }
+          }
+          if (preset.hasOwnProperty('osc1Octave')){
+            synth.setOctave(0, preset.osc1Octave);
+            for (const elem of OSC1OctaveElements) {
+              if (elem.value === preset.osc1Octave) {
+                elem.checked = true;
+              } else {
+                elem.checked = false;
+              }
+            }
+          }
+          if (preset.hasOwnProperty('osc2Type')){
+            synth.setOscType(1, preset.osc2Type);
+            for (const elem of OSC2TypeElements) {
+              if (elem.value === preset.osc2Type) {
+                elem.checked = true;
+              } else {
+                elem.checked = false;
+              }
+            }
+          }
+          if (preset.hasOwnProperty('osc2Octave')){
+            synth.setOctave(1, preset.osc2Octave);
+            for (const elem of OSC2OctaveElements) {
+              if (elem.value === preset.osc2Octave) {
+                elem.checked = true;
+              } else {
+                elem.checked = false;
+              }
+            }
+          }
+          if (preset.hasOwnProperty('osc12MixRatio')){
+            synth.setOsc12MixRatio(preset.osc12MixRatio);
+            OSC12MixElement.value = preset.osc12MixRatio;
+          }
+          if (preset.hasOwnProperty('filterType')){
+            synth.setFilterType(preset.filterType);
+            for (const elem of FilterTypeElements) {
+              if (elem.value === preset.filterType) {
+                elem.checked = true;
+              } else {
+                elem.checked = false;
+              }
+            }
+          }
+          if (preset.hasOwnProperty('filterFreq')){
+            synth.setFilterFrequency(preset.filterFreq);
+            FilterFreqElement.value = preset.filterFreq;
+          }
+          if (preset.hasOwnProperty('attackTime')){
+            synth.setAmpEnvParam('attackTime', preset.attackTime);
+            AmpEnvAttackElement.value = preset.attackTime;
+          }
+          if (preset.hasOwnProperty('decayime')){
+            synth.setAmpEnvParam('decayTime', preset.decayTime);
+            AmpEnvDecayElement.value = preset.decayTime;
+          }
+          if (preset.hasOwnProperty('sustainLv')){
+            synth.setAmpEnvParam('sustainLv', preset.sustainLv);
+            AmpEnvSustainElement.value = preset.sustainLv;
+          }
+          if (preset.hasOwnProperty('releaseTime')){
+            synth.setAmpEnvParam('releaseTime', preset.releaseTime);
+            AmpEnvReleaseElement.value = preset.releaseTime;
+          }
+          if (preset.hasOwnProperty('lfo1Type')){
+            synth.setLFOType(0, preset.lfo1Type);
+            for (const elem of LFO1TypeElements) {
+              if (elem.value === preset.lfo1Type) {
+                elem.checked = true;
+              } else {
+                elem.checked = false;
+              }
+            }
+          }
+          if (preset.hasOwnProperty('lfo1Freq')){
+            synth.setLFOFrequency(0, preset.lfo1Freq);
+            LFO1FreqElement.value = preset.lfo1Freq;
+          }
+          if (preset.hasOwnProperty('lfo1Depth')){
+            synth.setLFODepth(0, preset.lfo1Depth);
+            LFO1DepthElement.value = preset.lfo1Depth;
+          }
+          if (preset.hasOwnProperty('lfo1Target')){
+            synth.setLFOTarget(0, preset.lfo1Target);
+            LFO1TargetElement.value = preset.lfo1Target;
+          }
+          if (preset.hasOwnProperty('lfo2Type')){
+            synth.setLFOType(1, preset.lfo2Type);
+            for (const elem of LFO2TypeElements) {
+              if (elem.value === preset.lfo2Type) {
+                elem.checked = true;
+              } else {
+                elem.checked = false;
+              }
+            }
+          }
+          if (preset.hasOwnProperty('lfo2Freq')){
+            synth.setLFOFrequency(1, preset.lfo2Freq);
+            LFO2FreqElement.value = preset.lfo2Freq;
+          }
+          if (preset.hasOwnProperty('lfo2Depth')){
+            synth.setLFODepth(1, preset.lfo2Depth);
+            LFO2DepthElement.value = preset.lfo2Depth;
+          }
+          if (preset.hasOwnProperty('lfo2Target')){
+            synth.setLFOTarget(1, preset.lfo2Target);
+            LFO2TargetElement.value = preset.lfo2Target;
+          }
+        };
+        for (const elem of PresetElements) {
+          if (elem.checked) {
+            applyPreset(presets[elem.value]);
+          }
+          elem.addEventListener('change', function () {
+            applyPreset(presets[this.value]);
+          });
+        }
+        document.getElementById('save-preset').addEventListener('click', function () {
+          for (const elem of PresetElements) {
+            if (elem.checked) {
+              savePreset(elem.value);
+            }
+          }
+        });
+      }
+
+      // Click to start dialog
+      const startYMTBrowserSynth = () => {
+        document.getElementById('click-to-play-dialog').style.visibility = 'hidden';
+        document.getElementById('black-screen').style.visibility = 'hidden';
+        main();
+      }
+    </script>
+  </body>
+</html>
