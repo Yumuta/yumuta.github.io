@@ -1,16 +1,12 @@
 body {
-  background-color: #FFF;
-  color: #113;
+  background-color: #206;
+  background-image: url("static/bg.jpg");
+  color: #FAF;
   padding: 1rem;
-}
-
-header {
-  border-bottom: 1px #113 solid;
 }
 
 footer {
   margin-top: 1rem;
-  border-top: 1px #113 solid;
 }
 
 section {
@@ -18,11 +14,6 @@ section {
 }
 
 a {
-  color: #00F;
-  text-decoration: none;
-}
-
-a:hover {
-  color: #00F;
+  color: #FFF;
   text-decoration: underline;
 }
