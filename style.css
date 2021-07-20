@@ -1,7 +1,6 @@
 body {
-  background-color: #206;
-  background-image: url("static/bg.jpg");
-  color: #FAF;
+  background-color: #FFF;
+  color: #000;
   padding: 1rem;
 }
 
@@ -14,6 +13,6 @@ section {
 }
 
 a {
-  color: #FFF;
+  color: #777;
   text-decoration: underline;
 }
