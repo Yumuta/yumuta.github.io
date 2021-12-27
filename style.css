@@ -1,18 +1,28 @@
 body {
-  background-color: #FFF;
-  color: #000;
+  background-color: #ACF;
+  color: #003;
+  margin: 0;
+}
+
+header {
+  background-color: #003;
+  color: #ACF;
+  padding: 1rem;
+}
+
+main {
   padding: 1rem;
 }
 
 footer {
-  margin-top: 1rem;
+  padding: 1rem;
 }
 
-section {
+/* section {
   margin: 2rem 0;
-}
+} */
 
 a {
-  color: #777;
+  color: #006;
   text-decoration: underline;
 }
