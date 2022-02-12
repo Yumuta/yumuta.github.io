@@ -1,12 +1,12 @@
 body {
-  background-color: #ACF;
-  color: #003;
+  background-color: #EEE;
+  color: #111;
   margin: 0;
 }
 
 header {
-  background-color: #003;
-  color: #ACF;
+  background-color: #111;
+  color: #EEE;
   padding: 1rem;
 }
 
