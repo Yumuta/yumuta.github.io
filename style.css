@@ -5,8 +5,8 @@ body {
 }
 
 header {
-  background-color: #111;
-  color: #EEE;
+  /* background-color: #111;
+  color: #EEE; */
   padding: 1rem;
 }
 
@@ -25,4 +25,11 @@ footer {
 a {
   color: #006;
   text-decoration: underline;
+}
+
+h2 {
+  width: 100%;
+  border-bottom: 1px solid #111;
+  border-left: 1rem solid #111;
+  padding-left: 0.5rem;
 }
