@@ -1,37 +1,154 @@
 body {
   background-color: #EEE;
-  color: #111;
+  color: #003;
   margin: 0;
 }
 
 header {
-  padding: 1rem;
+  background-color: #003;
+  color: #EEE;
+  padding: 3rem;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 header > * {
-  margin-bottom: 1rem;
-}
-
-main {
-  padding: 1rem;
-}
-
-footer {
-  padding: 1rem;
-}
-
-section {
-  margin: 1rem 1rem;
+  margin: 0;
 }
 
 a {
+  font-size: 1.1rem;
   color: #006;
   text-decoration: underline;
+  font-weight: bold;
 }
 
-main > h2 {
-  width: 100%;
-  border-bottom: 1px solid #111;
-  border-left: 1rem solid #111;
+main {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+section {
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+section > * {
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+section > h2 {
+  border-bottom: 1px solid #003;
+  border-left: 1rem solid #003;
+  margin-top: 1rem;
   padding-left: 0.5rem;
+}
+
+section > h3 {
+  border: 1px solid #003;
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+table {
+  width: 100%;
+  max-width: 720px;
+}
+
+tr {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+td {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+}
+
+td:nth-child(odd) {
+  background-color: #003;
+  color: #EEE;
+  font-weight: bold;
+  border: 1px solid #EEE;
+  justify-content: center;
+}
+
+td:nth-child(even) {
+  background-color: #CCF;
+  border: 1px solid #EEE;
+}
+
+div.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+div.grid > .grid-item {
+  padding: 1rem;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: start;
+  align-items: center;
+}
+
+.grid-item > * {
+  margin: 0;
+}
+
+.grid-item > .yt16to9 {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: none;
+}
+
+.grid-item > .title {
+  font-size: 1.2rem;
+}
+
+.grid-item > .role {
+  font-size: 0.8rem;
+}
+
+.pc-only, .pc-only * {
+  display: none;
+  height: 0;
+}
+
+@media (min-width: 720px) {
+  div.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  }
+  .pc-only, .pc-only * {
+    display: block;
+    height: auto;
+  }
+  .pc-collapse, .pc-collapse * {
+    display: none;
+    height: 0;
+  }
+}
+
+footer {
+  background-color: #003;
+  color: #EEE;
+  padding: 1rem;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+footer > * {
+  margin: 0;
+}
+
+footer > .copyright {
+  font-size: 0.8rem;
 }
