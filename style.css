@@ -1,11 +1,11 @@
 body {
   background-color: #EEE;
-  color: #666;
+  color: #003;
   margin: 0;
 }
 
 header {
-  background-color: #666;
+  background-color: #003;
   color: #EEE;
   padding: 3rem;
   display: flex;
@@ -20,7 +20,7 @@ header > * {
 
 a {
   font-size: 1.1rem;
-  color: #666;
+  color: #003;
   text-decoration: underline;
   font-weight: bold;
 }
@@ -41,14 +41,14 @@ section > * {
 }
 
 section > h2 {
-  border-bottom: 1px solid #666;
-  border-left: 1rem solid #666;
+  border-bottom: 1px solid #003;
+  border-left: 1rem solid #003;
   margin-top: 1rem;
   padding-left: 0.5rem;
 }
 
 section > h3 {
-  border: 1px solid #666;
+  border: 1px solid #003;
   padding-left: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -71,7 +71,7 @@ td {
 }
 
 td:nth-child(odd) {
-  background-color: #666;
+  background-color: #003;
   color: #EEE;
   font-weight: bold;
   border: 1px solid #EEE;
@@ -128,7 +128,7 @@ div.grid > .grid-item {
 }
 
 footer {
-  background-color: #666;
+  background-color: #003;
   color: #EEE;
   padding: 1rem;
   display: flex;
