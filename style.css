@@ -75,7 +75,6 @@ td:nth-child(odd) {
   color: #EEE;
   font-weight: bold;
   border: 1px solid #EEE;
-  justify-content: center;
 }
 
 td:nth-child(even) {
