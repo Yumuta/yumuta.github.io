@@ -48,7 +48,7 @@ section > h2 {
 }
 
 section > h3 {
-  border: 1px solid #003;
+  background-color: #ABD;
   padding-left: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
